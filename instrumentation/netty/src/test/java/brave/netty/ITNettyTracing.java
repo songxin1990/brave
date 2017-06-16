@@ -7,7 +7,7 @@ import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 public class ITNettyTracing extends ITHttpServer {
-  private int port = 4567;
+  private int port = 7654;
   HttpSnoopyServer httpSnoopServer = null;
 
   @Override
