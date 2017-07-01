@@ -36,8 +36,10 @@ public class ITNettyTracing extends ITHttpServer {
   @After
   public void stop() throws Exception {
     if (httpSnoopServer != null) {
-      httpSnoopServer.interrupt();
+      //httpSnoopServer.interrupt();
+      httpSnoopServer.shutdown();
       httpSnoopServer = null;
     }
+
   }
 }

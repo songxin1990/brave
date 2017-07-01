@@ -1,5 +1,6 @@
 package brave.http;
 
+import brave.SpanCustomizer;
 import brave.internal.HexCodec;
 import brave.sampler.Sampler;
 import java.io.IOException;
@@ -153,26 +154,26 @@ public abstract class ITHttpServer extends ITHttp {
         .containsExactly("get");
   }
 
-  //@Test
-  //public void supportsPortableCustomization() throws Exception {
-  //  httpTracing = httpTracing.toBuilder().serverParser(new HttpServerParser() {
-  //    @Override
-  //    public <Req> void request(HttpAdapter<Req, ?> adapter, Req req, SpanCustomizer customizer) {
-  //      customizer.name(adapter.method(req).toLowerCase() + " " + adapter.path(req));
-  //      customizer.tag(TraceKeys.HTTP_URL, adapter.url(req)); // just the path is logged by default
-  //    }
-  //  }).build();
-  //  init();
-  //
-  //  String uri = "/foo?z=2&yAA=1";
-  //  get(uri);
-  //
-  //  assertThat(spans)
-  //      .extracting(s -> s.name)
-  //      .containsExactly("get /foo");
-  //
-  //  assertReportedTagsInclude(TraceKeys.HTTP_URL, url(uri));
-  //}
+  @Test
+  public void supportsPortableCustomization() throws Exception {
+    httpTracing = httpTracing.toBuilder().serverParser(new HttpServerParser() {
+      @Override
+      public <Req> void request(HttpAdapter<Req, ?> adapter, Req req, SpanCustomizer customizer) {
+        customizer.name(adapter.method(req).toLowerCase() + " " + adapter.path(req));
+        customizer.tag(TraceKeys.HTTP_URL, adapter.url(req)); // just the path is logged by default
+      }
+    }).build();
+    init();
+
+    String uri = "/foo?z=2&yAA=1";
+    get(uri);
+
+    assertThat(spans)
+        .extracting(s -> s.name)
+        .containsExactly("get /foo");
+
+    assertReportedTagsInclude(TraceKeys.HTTP_URL, url(uri));
+  }
 
   @Test
   public void addsStatusCode_badRequest() throws Exception {
