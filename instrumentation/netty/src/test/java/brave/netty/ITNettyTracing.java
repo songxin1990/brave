@@ -14,7 +14,11 @@ public class ITNettyTracing extends ITHttpServer {
   @Override
   @Test(expected = ComparisonFailure.class)
   public void reportsClientAddress() throws Exception {
-    throw new AssumptionViolatedException("client address can get from channel not request");
+    try {
+      throw new AssumptionViolatedException("client address can get from channel not request");
+    } finally {
+      Thread.sleep(2000);
+    }
   }
 
   @Override
