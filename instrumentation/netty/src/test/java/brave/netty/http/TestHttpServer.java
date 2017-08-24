@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package brave.netty;
+package brave.netty.http;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -25,15 +25,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpSnoopyServer extends Thread {
-  private static final Logger logger = LoggerFactory.getLogger(HttpSnoopyServer.class);
+class TestHttpServer extends Thread {
+  private static final Logger logger = LoggerFactory.getLogger(TestHttpServer.class);
 
   private final int port;
   private ChannelInitializer<SocketChannel> channelInitializer;
   EventLoopGroup bossGroup = new NioEventLoopGroup();
   EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-  public HttpSnoopyServer(int port, ChannelInitializer<SocketChannel> channelInitializer) {
+  public TestHttpServer(int port, ChannelInitializer<SocketChannel> channelInitializer) {
     this.port = port;
     this.channelInitializer = channelInitializer;
   }

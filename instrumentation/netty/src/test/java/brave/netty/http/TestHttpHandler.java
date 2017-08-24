@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package brave.netty;
+package brave.netty.http;
 
 import brave.http.HttpTracing;
 import io.netty.buffer.Unpooled;
@@ -38,12 +38,12 @@ import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class HttpSnoopyServerHandler extends ChannelInboundHandlerAdapter {
+class TestHttpHandler extends ChannelInboundHandlerAdapter {
 
   private FullHttpRequest httpRequest;
   private HttpTracing httpTracing;
 
-  public HttpSnoopyServerHandler(HttpTracing httpTracing) {
+  public TestHttpHandler(HttpTracing httpTracing) {
     this.httpTracing = httpTracing;
   }
 

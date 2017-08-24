@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package brave.netty;
+package brave.netty.http;
 
 import brave.http.HttpTracing;
 import io.netty.channel.ChannelInitializer;
@@ -23,10 +23,10 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 
-public class HttpSnoopyServerInitializer extends ChannelInitializer<SocketChannel> {
+class TestHttpInitializer extends ChannelInitializer<SocketChannel> {
   private HttpTracing httpTracing;
 
-  public HttpSnoopyServerInitializer(HttpTracing httpTracing) {
+  public TestHttpInitializer(HttpTracing httpTracing) {
     this.httpTracing = httpTracing;
   }
 
@@ -38,10 +38,10 @@ public class HttpSnoopyServerInitializer extends ChannelInitializer<SocketChanne
     p.addLast("encoder", new HttpResponseEncoder());
     p.addLast("aggregator", new HttpObjectAggregator(1048576));
     //add brave tracing
-    p.addLast("braveResponse", NettyTracing.create(httpTracing).createHttpResponseHandler());
-    p.addLast("braveRequest", NettyTracing.create(httpTracing).createHttpRequestHandler());
+    p.addLast("braveResponse", NettyHttpTracing.create(httpTracing).channelOutboundHandler());
+    p.addLast("braveRequest", NettyHttpTracing.create(httpTracing).channelInboundHandler());
 
-    p.addLast("handler", new HttpSnoopyServerHandler(httpTracing));
+    p.addLast("handler", new TestHttpHandler(httpTracing));
 
   }
 }
