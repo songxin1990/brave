@@ -14,7 +14,7 @@
 
 machine:
   java:
-    version: openjdk8
+    version: oraclejdk8
   services:
     - mysql
   environment:

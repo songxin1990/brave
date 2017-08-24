@@ -14,7 +14,7 @@
 
   <properties>
     <main.basedir>${project.basedir}/../..</main.basedir>
-    <netty.version>4.1.12.FINAL</netty.version>
+    <netty.version>4.1.9.FINAL</netty.version>
   </properties>
 
   <dependencies>
