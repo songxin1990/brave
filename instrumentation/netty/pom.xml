@@ -14,11 +14,16 @@
 
   <properties>
     <main.basedir>${project.basedir}/../..</main.basedir>
-    <netty.version>4.1.9.FINAL</netty.version>
+    <netty.version>4.1.12.FINAL</netty.version>
   </properties>
 
   <dependencies>
     <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.12.Final</version>
+    </dependency>
+    <!--<dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-buffer</artifactId>
       <version>${netty.version}</version>
@@ -42,7 +47,7 @@
       <groupId>io.netty</groupId>
       <artifactId>netty-transport</artifactId>
       <version>${netty.version}</version>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>${project.groupId}</groupId>
