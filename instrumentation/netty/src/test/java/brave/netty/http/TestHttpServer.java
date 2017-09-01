@@ -51,7 +51,7 @@ class TestHttpServer extends Thread {
       ch.closeFuture().sync();
     } catch (InterruptedException e) {
       logger.info("netty httpserver interrupted");
-      //Thread.currentThread().interrupt();
+      Thread.currentThread().interrupt();
     } finally {
       shutdown();
     }
