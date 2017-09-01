@@ -9,6 +9,7 @@ import org.junit.Test;
 public class ITNettyHttpTracing extends ITHttpServer {
   private int port = 4567;
   TestHttpServer httpSnoopServer = null;
+  private boolean inited = false;
 
   @Override
   @Test(expected = ComparisonFailure.class)
@@ -22,10 +23,13 @@ public class ITNettyHttpTracing extends ITHttpServer {
 
   @Override
   protected void init() throws Exception {
-    stop();
+    if(inited){
+      return ;
+    }
     TestHttpInitializer initializer = new TestHttpInitializer(httpTracing);
     httpSnoopServer = new TestHttpServer(port, initializer);
     httpSnoopServer.start();
+    inited = true;
   }
 
   @Override
@@ -36,7 +40,7 @@ public class ITNettyHttpTracing extends ITHttpServer {
   @After
   public void stop() throws Exception {
     if (httpSnoopServer != null) {
-      httpSnoopServer.shutdown();
+      httpSnoopServer.interrupt();
     }
 
   }
